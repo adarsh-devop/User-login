@@ -95,7 +95,7 @@ export const Userlogin = async (req, res) => {
 
 export const GetallUser = async (req,res) => {
     try {
-        const allUser = await user.find()
+        const allUser = await user.find().select("-password")
         if(!allUser)
             {
                 return res.json
@@ -118,3 +118,68 @@ export const GetallUser = async (req,res) => {
         })
     }
 }
+
+//===========================================
+//get spc
+//===========================================
+
+export const getSpecific  = async (req,res) => {
+    try {
+        const {id} = req.params
+        const specificUser = await user.findById(id)
+
+        if (!specificUser) {
+            return res.json({
+                message:"user not found"
+            })            
+        }
+
+        res.json({
+            message:"user found",
+            name : specificUser.username,
+            email : specificUser.email 
+        })
+    } catch (error) {
+        res.json({
+            message:"error",
+            message:message.error
+
+        })
+    }
+}
+
+//==============================================
+//delete
+//==============================================
+
+export const deleteUser  = async (req,res) => {
+
+    try {
+
+        const {id} = req.params
+        
+        const userdl = await user.findByIdAndDelete(id)
+
+        if (!userdl) {
+            return res.json({
+                message:"user not found"
+            })            
+        }
+
+        res.json({
+            message:"user deleted",
+            name : userdl.username
+        })
+        
+    } catch (error) {
+        res.json({
+            message:"error",
+            message:message.error
+
+    })
+
+}}
+
+//
+//updata
+//
