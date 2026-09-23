@@ -53,7 +53,7 @@ export const Userlogin = async (req, res) => {
 
     if (!email || !password) {
       return res.json({
-        mas: "email and password both are needed",
+        message: "email and password both are needed",
       });
     }
 
