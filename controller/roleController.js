@@ -1,4 +1,6 @@
 import userRole from "../models/role.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //=========================================================
 //registr
@@ -55,11 +57,11 @@ export const registr = async (req,res) => {
 
 export const Userlogin = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
 
-    if (!email || !password || !role) {
+    if (!email || !password) {
       return res.json({
-        message: "email,password and role all are needed",
+        message: "email and password both are needed",
       });
     }
 
@@ -71,11 +73,13 @@ export const Userlogin = async (req, res) => {
       });
     }
 
+
+
     //====================================
     //password
     //====================================
 
-    const passwordCrt = await bcrypt.compare(password, userexist.password);
+    const passwordCrt = await bcrypt.compare(password, existRole.password);
 
     if (!passwordCrt) {
       return res.json({
@@ -83,9 +87,18 @@ export const Userlogin = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+        {
+            userId:existRole._id,
+            role:existRole.role
+        }
+    )
+
     res.json({
       message: "login Successful",
     });
+
+
   } catch (error) {
     res.json({
       message: "server error",
@@ -93,4 +106,3 @@ export const Userlogin = async (req, res) => {
     });
   }
 };
-
