@@ -180,9 +180,10 @@ export const deleteUser  = async (req,res) => {
 
 }}
 
-//
+//================================================
 //update
-//
+//================================================
+
 export const updateUser  = async (req,res) => {
   try {
     const {id} = req.params
