@@ -181,5 +181,33 @@ export const deleteUser  = async (req,res) => {
 }}
 
 //
-//updata
+//update
 //
+export const updateUser  = async (req,res) => {
+  try {
+    const {id} = req.params
+
+    const userdata = await user.findByIdAndUpdate(id, req.body,{
+
+      new:true,
+      runValidators:true
+
+    })
+
+    if (!userdata) {
+      return res.json({
+        message:"user not found"
+      })
+    }
+
+    res.json({
+      message:"data is now updated"
+    })
+
+  } catch (error) {
+    res.json({
+      message:"error found",
+      message:error.message
+    })
+  }
+}
