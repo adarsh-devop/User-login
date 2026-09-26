@@ -87,11 +87,19 @@ export const Userlogin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
+    const token = jwt.sign
+    (
         {
             userId:existRole._id,
-            role:existRole.role
+            role:existRole.role,
+        },
+        
+          process.env.JWT_SECRET,
+        
+        {
+          expiresIn: "1d",
         }
+
     )
 
     res.json({

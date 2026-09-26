@@ -2,6 +2,7 @@ import express from "express"
 import connectedb from "./config/db.js"
 import dotenv from "dotenv"
 import userRoutes from "./routes/userRoutes.js"
+import roleRoutes from "./routes/roleRoutes.js"
 
 
 
@@ -24,6 +25,8 @@ connectedb()
 
 app.use("/api/user", userRoutes)
 
+app.use("/api/role", roleRoutes)
+
 
 app.get("/",(req,res) => {
     res.send("hello world")
@@ -33,6 +36,9 @@ app.listen(2000,() => {
     console.log("Server running on port 2000")
     
 })
+
+
+
 
 // http://localhost:2000
 
