@@ -104,6 +104,7 @@ export const Userlogin = async (req, res) => {
 
     res.json({
       message: "login Successful",
+      token
     });
 
 
