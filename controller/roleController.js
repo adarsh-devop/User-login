@@ -87,17 +87,16 @@ export const Userlogin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign
-    (
+    const token = jwt.sign(
         {
-            userId:existRole._id,
-            role:existRole.role,
+            userId:existRole._id,              //playload
+            role:existRole.role,               //playload
         },
         
-          process.env.JWT_SECRET,
+          process.env.JWT_SECRET,              //secret key for signing the token
         
         {
-          expiresIn: "1d",
+          expiresIn: "1d",                   //token expires in 1 day
         }
 
     )

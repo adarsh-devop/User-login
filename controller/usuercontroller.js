@@ -155,6 +155,8 @@ export const getSpecific  = async (req,res) => {
 export const deleteUser  = async (req,res) => {
 
     try {
+      console.log("function worked");
+      
 
         const {id} = req.params
         

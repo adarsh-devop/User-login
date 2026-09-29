@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   try {
+    console.log("mid working");
+    
     const authHeader = req.headers.authorization;   
 
     if (!authHeader) {
@@ -10,8 +12,7 @@ const authMiddleware = (req, res, next) => {
       });
     }
 
-    const token = authHeader.split(" ")[1]; 
-
+    const token = authHeader.split(" ")[1]; //split the header to get the token part
     if (!token) {
       return res.json({
         message: "Token missing",
@@ -23,8 +24,14 @@ const authMiddleware = (req, res, next) => {
       process.env.JWT_SECRET
     );
 
+    // decode = {
+
+    //   userid:"hgashkhgd",
+    //   userrole:"admin"
+    // }
+
     req.user = decoded;
-    console.log("payload....",req.user);
+    console.log("payload....",req.user);   
     
 
     next();
